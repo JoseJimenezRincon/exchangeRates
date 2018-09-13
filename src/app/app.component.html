@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <h1>Exchange Rates</h1>
+  </div>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-md-5 col-sm-5">
+      <div class="row">
+        <label class="col-md-2"></label>
+        <label class="col-md-2 col-sm-3 col-form-label">Base</label>
+        <div class="col-md-6 col-sm-9">
+          <select (change)="updateSelectedCoin($event.target.value)" class="form-control form-control-sm">
+            <option disabled selected hidden>{{this.coins[0]}}</option>
+            <option *ngFor="let coin of this.coins" style="color: red !important" [ngValue]="coin">{{coin}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <label class="col-md-2"></label>
+        <label class="col-md-2 col-sm-3 col-form-label">Date</label>
+        <div class="col-md-6 col-sm-9">
+          <select (change)="updateSelectedDate($event.target.value)" class="form-control form-control-sm">
+            <option disabled selected hidden>{{this.dates[0]}}</option>
+            <option *ngFor="let date of this.dates" [ngValue]="date">{{date}}</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-4 col-sm-3 col-form-label"></div>
+        <div class="col-md-6 col-sm-9">
+          <button type="button" (click)="showResultsToTable()" class="btn btn-secondary form-control">Display</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-7">
+      <table>
+        <thead>
+          <tr>
+            <th><a href (click)="sortTable('company')">Currency</a></th>
+            <th>Buy</th>
+            <th>Sell</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let number of this.coinsToShow | sorting:path:order ; let i=index">
+            <td>{{this.coinsToShow[i]}}</td>
+            <td>{{this.buy[i] | number: '0.4-4'}}</td>
+            <td>{{this.sell[i] | number: '0.4-4'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
